@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { PayPalButton } from 'react-paypal-button';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import '../styles/components/Payment.css';
 import handleSumTotal from '../utils/index';
 
 const Payment = () => {
-  const { state } = useContext(AppContext);
-  const { cart } = state;
+  const history = useHistory();
+  const { state, addNewOrder } = useContext(AppContext);
+  const { cart, buyer } = state;
   const { CLIENTE_ID } = process.env;
 
   const paypalOptions = {
@@ -18,6 +20,18 @@ const Payment = () => {
   const buttonStyles = {
     layout: 'vertical',
     shape: 'rect',
+  };
+
+  const handlePaymentSuccess = (data) => {
+    if (data.status === 'COMPLETED') {
+      const newOrder = {
+        buyer,
+        products: cart,
+        payment: data,
+      };
+      addNewOrder(newOrder);
+      history.push('/checkout/success');
+    }
   };
 
   return (
@@ -36,7 +50,7 @@ const Payment = () => {
             buttonStyles={buttonStyles}
             amount={handleSumTotal(cart)}
             onPaymentStart={() => console.log('Start Payment')}
-            onPaymentSuccess={() => console.log(data)}
+            onPaymentSuccess={(data) => handlePaymentSuccess(data)}
             onPaymentError={() => console.log(error)}
             onPaymentCancel={() => console.log(data)}
           />
