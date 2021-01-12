@@ -61,7 +61,7 @@ const Information = () => {
         {cart.map((item) => (
           <div className="Information-item">
             <div className="Information-element">
-              <h4>{item.name}</h4>
+              <h4>{item.title}</h4>
               <span>{`$${item.price}`}</span>
             </div>
           </div>
