@@ -9,12 +9,13 @@ const Payment = () => {
   const history = useHistory();
   const { state, addNewOrder } = useContext(AppContext);
   const { cart, buyer } = state;
-  const { CLIENTE_ID } = process.env;
+  const { PAYPAL_CLIENT_ID } = process.env;
 
   const paypalOptions = {
-    clientId: CLIENTE_ID,
+    clientId: PAYPAL_CLIENT_ID,
     intent: 'capture',
     currency: 'USD',
+    locale: 'es_AR',
   };
 
   const buttonStyles = {
@@ -40,9 +41,12 @@ const Payment = () => {
         <h3>Resumen del pedido:</h3>
         {cart.map((item) => (
           <div className="Payment-item" key={item.title}>
-            <h4>{item.title}</h4>
-            <span>{`$${item.price}`}</span>
+            <div className="Payment-element">
+              <h4>{item.title}</h4>
+              <span>{`$${item.price}`}</span>
+            </div>
           </div>
+
         ))}
         <div className="Payment-button">
           <PayPalButton
@@ -52,7 +56,7 @@ const Payment = () => {
             onPaymentStart={() => console.log('Start Payment')}
             onPaymentSuccess={(data) => handlePaymentSuccess(data)}
             onPaymentError={() => console.log(error)}
-            onPaymentCancel={() => console.log(data)}
+            onPaymentCancel={() => console.log("Cancelled")}
           />
         </div>
       </div>
