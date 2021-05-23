@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import Product from './Product';
-import AppContext from '../context/AppContext';
-import '../styles/components/Products.css';
+import { Product } from '../Product';
+import AppContext from '../../context/AppContext';
 
-const Products = () => {
+import { ProductsStyled, ProductsItemsStyled } from './Products.styled';
+
+export const Products = () => {
   const { state, addToCart } = useContext(AppContext);
   const { products } = state;
 
@@ -12,8 +13,8 @@ const Products = () => {
   };
 
   return (
-    <div className="Products">
-      <div className="Products-items">
+    <ProductsStyled>
+      <ProductsItemsStyled>
         {products.map((product) => (
           <Product
             key={product.id}
@@ -21,9 +22,7 @@ const Products = () => {
             handleAddToCart={handleAddToCart}
           />
         ))}
-      </div>
-    </div>
+      </ProductsItemsStyled>
+    </ProductsStyled>
   );
 };
-
-export default Products;

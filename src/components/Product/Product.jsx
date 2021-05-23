@@ -1,20 +1,19 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import { ProductStyled, ProductInfoStyled, ProductInfoTitleStyled } from './Product.styled';
 
-const Product = ({ product, handleAddToCart }) => (
-  <div className="Products-item">
+export const Product = ({ product, handleAddToCart }) => (
+  <ProductStyled>
     <img src={product.image} alt={product.title} />
-    <div className="Product-item-info">
-      <h2>
+    <ProductInfoStyled>
+      <ProductInfoTitleStyled>
         {product.title}
         <span> ${product.price}</span>
-      </h2>
+      </ProductInfoTitleStyled>
       <p>{product.description}</p>
-    </div>
+    </ProductInfoStyled>
     <button type="button" onClick={handleAddToCart(product)}>
       Comprar
     </button>
-  </div>
+  </ProductStyled>
 );
-
-export default Product;
