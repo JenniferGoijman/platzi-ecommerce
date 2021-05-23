@@ -239,11 +239,6 @@ input {
   margin: 10px 0 0 0;
 }
 
-.Footer {
-  display: flex;
-  justify-content: space-between;
-}
-
 body {
   margin: 0;
   padding: 0;
