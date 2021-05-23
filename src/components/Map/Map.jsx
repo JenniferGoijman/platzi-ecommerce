@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
-const Map = ({ data }) => {
+export const Map = ({ data }) => {
   const { GOOGLE_MAPS_API_KEY } = process.env;
   const mapStyles = {
     height: '50vh',
@@ -18,5 +18,3 @@ const Map = ({ data }) => {
     </LoadScript>
   );
 };
-
-export default Map;
